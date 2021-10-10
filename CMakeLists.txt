@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 project(engine)
 set(CMAKE_CXX_STANDARD 20)
 
-include(CTest) # We include CTest which is part of CMake
+ # We include CTest which is part of CMake
 
 set(SDL2_DIR "${CMAKE_SOURCE_DIR}/lib/SDL2")
 add_subdirectory(lib/SQLite3)
@@ -13,6 +13,7 @@ add_subdirectory(src)
 # execute tests as part of their build
 if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
     add_subdirectory(tests)
+    
 endif ()
 
 enable_testing()

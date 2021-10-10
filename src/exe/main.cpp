@@ -10,7 +10,7 @@ Renderer gRenderer;
 scene gScene;
 
 //
-//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+// #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 int main() {
 	gPlatform.startUp();

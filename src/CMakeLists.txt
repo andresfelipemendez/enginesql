@@ -6,6 +6,6 @@ include_directories(${SDL2_INCLUDE_DIRS})
 file(GLOB SOURCES "${CMAKE_SOURCE_DIR}/src/*.cpp")
 
 add_library(enginelib ${SOURCES})
-target_link_libraries(enginelib ${SDL2_LIBRARIES} sqlite3)
+target_link_libraries(enginelib sqlite3 ${SDL2_LIBRARIES} )
 
 add_subdirectory(exe)
