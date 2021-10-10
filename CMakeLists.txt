@@ -1,7 +1,9 @@
+cmake_minimum_required(VERSION 3.20)
 project(engine)
 
-
 include(CTest) # We include CTest which is part of CMake
+
+set(SDL2_DIR "${CMAKE_SOURCE_DIR}/lib/SDL2")
 
 add_subdirectory(src)
 

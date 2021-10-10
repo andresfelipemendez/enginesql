@@ -1,7 +1,11 @@
 project(enginelib LANGUAGES CXX)
-add_library(enginelib enginelib.cpp)
+find_package(SDL2 CONFIG REQUIRED)
 
-project(enginesrc LANGUAGES CXX)
+include_directories(${SDL2_INCLUDE_DIRS})
 
-add_executable(enginesrc main.cpp)
-target_link_libraries(enginesrc PUBLIC enginelib)
+file(GLOB SOURCES "${CMAKE_SOURCE_DIR}/src/*.cpp")
+
+add_library(enginelib ${SOURCES})
+target_link_libraries(enginelib ${SDL2_LIBRARIES})
+
+add_subdirectory(exe)
