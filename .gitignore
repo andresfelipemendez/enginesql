@@ -41,14 +41,9 @@ build
 .vs/enginesql/v16/TestStore/0/000.testlog
 .vs/enginesql/v16/TestStore/0/testlog.manifest
 
+!db/*.db
 !lib/**/*.lib
 !lib/**/*.dll
-.vs/enginesql/v16/ipch/AutoPCH/48f3e618171d6f97/MAIN.ipch
-.vs/enginesql/v16/ipch/AutoPCH/712fb98c2b18a5cd/PLATFORM.ipch
-.vs/enginesql/v16/ipch/AutoPCH/d1dc2fb36bdf3935/PLATFORM.ipch
-.vs/enginesql/v16/ipch/AutoPCH/db1da308af0076ef/MAIN.ipch
-.vs/enginesql/v16/ipch/AutoPCH/dd44cdaf90956ae9/RENDERER.ipch
-.vs/enginesql/v16/ipch/AutoPCH/fc87413c14dcaa81/RENDERER.ipch
-.vs/enginesql/v16/ipch/AutoPCH/7cef90d36d1625dc/SCENE.ipch
-.vs/enginesql/v16/ipch/AutoPCH/6f1db90a53229ca7/MAIN.ipch
-.vs/enginesql/v16/ipch/AutoPCH/3e5cd24fe90ed025/TEST1.ipch
+.vs/enginesql/
+cmake-build-debug/
+.idea

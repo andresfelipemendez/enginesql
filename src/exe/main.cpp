@@ -1,15 +1,13 @@
 #include <iostream>
 
 #include "platform.h"
-#include "renderer.h"
+#include "RendereringSystem.h"
 #include "scene.h"
 
 Platform gPlatform;
-Renderer gRenderer;
-
+RendereringSystem gRenderer;
 scene gScene;
 
-//
 // #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 int main() {
