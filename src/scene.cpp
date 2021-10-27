@@ -1,27 +1,42 @@
-#include "scene.h"
+#include "Scene.h"
 
 #include "sqlite3.h"
 
 #include <string_view>
 
 
-std::vector<GameObject> scene::gameObjects;
+std::vector<GameObject> Scene::gameObjects;
 
-scene::scene() {
+Scene::Scene() {
 	if (SQLITE_OK != (ret = sqlite3_initialize()))
 	{
 		printf("Failed to initialize library: %d\n", ret);
 	}
 }
 
-scene::~scene() {
+Scene::~Scene() {
 	if (nullptr != db) sqlite3_close(db);
 }
 
-bool scene::open(std::string name) {
+bool Scene::open(std::string name) {
 	int exit = 0;
 	exit = sqlite3_open("scene1.db", &db);
-	return SQLITE_OK == 0;
+	sceneName = name;
+	return exit == SQLITE_OK;
+}
+
+void Scene::Load()
+{
+	std::string sql = "SELECT * from Scene";
+	sqlite3_stmt* stmt;
+	sqlite3_prepare_v2(db, sql.c_str(), sql.length(), &stmt, nullptr);
+	while (sqlite3_step(stmt) == SQLITE_ROW) {
+		GameObject go;
+		go.GUID = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+		go.Name = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+		Scene::gameObjects.push_back(go);
+	};
+	sqlite3_finalize(stmt);
 }
 
 static int callback(void* data, int argc, char** argv, char** azColName) {
@@ -41,12 +56,12 @@ static int callback(void* data, int argc, char** argv, char** azColName) {
 			go.Name = value;
 		}
 	}
-	scene::gameObjects.push_back(go);
+	Scene::gameObjects.push_back(go);
 
 	return 0;
 }
 
-std::string scene::getValue()
+std::string Scene::getValue()
 {
 	auto sql = "SELECT * from scene1";
 	const char* data = "Callback function called";

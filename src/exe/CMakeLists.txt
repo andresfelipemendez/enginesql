@@ -11,7 +11,7 @@ add_custom_command(TARGET enginesrc POST_BUILD
         "${CMAKE_SOURCE_DIR}/lib/SDL2/lib/x64/SDL2.dll"
         $<TARGET_FILE_DIR:enginesrc>)
 
-        add_custom_command(TARGET enginesrc POST_BUILD
+add_custom_command(TARGET enginesrc POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_SOURCE_DIR}/db"
         $<TARGET_FILE_DIR:enginesrc>)
