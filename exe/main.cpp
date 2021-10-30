@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "Globals.h"
+
 #include "platform.h"
 #include "RendereringSystem.h"
 #include "Scene.h"
@@ -10,9 +12,11 @@ RendereringSystem gRenderer;
 Scene gScene;
 EditorGUI gEditorGUI;
 
-#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 int main() {
+	
+
 	gPlatform.startUp();
 	gRenderer.startUp();
 	gEditorGUI.startUp();
