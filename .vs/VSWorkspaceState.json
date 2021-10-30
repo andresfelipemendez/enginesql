@@ -1,10 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src",
+    "\\lib",
+    "\\lib\\imgui",
+    "\\lib\\tinygltf",
     "\\src\\components",
     "\\src\\exe",
     "\\tests"
   ],
+  "SelectedNode": "\\CMakeLists.txt",
   "PreviewInSolutionExplorer": false
 }

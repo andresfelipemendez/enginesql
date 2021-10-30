@@ -3,16 +3,19 @@
 #include "platform.h"
 #include "RendereringSystem.h"
 #include "Scene.h"
+#include "EditorGUI.h"
 
 Platform gPlatform;
 RendereringSystem gRenderer;
 Scene gScene;
+EditorGUI gEditorGUI;
 
-// #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 int main() {
 	gPlatform.startUp();
 	gRenderer.startUp();
+	gEditorGUI.startUp();
 
 	if (gScene.open("scene1.db")) {
 		gScene.Load();
@@ -23,7 +26,8 @@ int main() {
 	while (gPlatform.isRunning)
 	{
 		gPlatform.runLoop();
-		gRenderer.startUp();
+		gRenderer.runLoop();
+		gEditorGUI.runLoop();
 	}
 
 	gRenderer.startUp();

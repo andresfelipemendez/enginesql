@@ -11,5 +11,4 @@ add_executable(myGameTests test1.cpp)
 
 target_link_libraries(myGameTests PRIVATE Catch2::Catch2WithMain enginelib)
 
-# add_test(NAME myGameTests COMMAND myGameTests)
 catch_discover_tests(myGameTests)

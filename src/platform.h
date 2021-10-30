@@ -1,13 +1,13 @@
 #pragma once
 
 struct SDL_Window;
+extern SDL_Window* window;
 
 class Platform
 {
 public:
-	SDL_Window* window = nullptr;
 	void startUp();
 	void runLoop();
 	void shutDown();
-	bool isRunning;
+	bool isRunning = false;
 };

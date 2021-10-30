@@ -1,9 +1,6 @@
 #include "Scene.h"
-
 #include "sqlite3.h"
-
 #include <string_view>
-
 
 std::vector<GameObject> Scene::gameObjects;
 

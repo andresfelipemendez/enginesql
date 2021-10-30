@@ -1,1 +1,2 @@
 *.db merge=keepTheir
+*.glb filter=lfs diff=lfs merge=lfs -text

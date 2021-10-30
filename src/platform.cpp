@@ -4,17 +4,21 @@
 #include "SDL.h"
 #include "SDL_opengl.h"
 
+SDL_Window* window = nullptr;
+
 void Platform::startUp() {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		std::cout << "Failed to initialize the SDL2 library\n";
 	}
 
+	SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+
 	window = SDL_CreateWindow("SDL2 Window",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		680, 480,
-		0);
+		window_flags);
 
 	if (!window)
 	{
