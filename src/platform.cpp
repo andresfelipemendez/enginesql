@@ -7,8 +7,7 @@
 SDL_Window* window = nullptr;
 
 void Platform::startUp() {
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		std::cout << "Failed to initialize the SDL2 library\n";
 	}
 
@@ -32,8 +31,6 @@ void Platform::startUp() {
 		std::cout << "Failed to get the surface from the window\n";
 	}
 
-	SDL_UpdateWindowSurface(window);
-
 	isRunning = true;
 }
 
@@ -47,7 +44,6 @@ void Platform::runLoop() {
 			isRunning = false;
 			break;
 		}
-		SDL_UpdateWindowSurface(window);
 	}
 }
 

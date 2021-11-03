@@ -1,6 +1,5 @@
 #pragma once
 
-
 class EditorGUI 
 {
 	bool my_tool_active;
