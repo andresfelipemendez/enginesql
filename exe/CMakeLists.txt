@@ -16,5 +16,10 @@ add_custom_command(TARGET enginesrc POST_BUILD
         "${CMAKE_SOURCE_DIR}/db"
         $<TARGET_FILE_DIR:enginesrc>)
 
+add_custom_command(TARGET enginesrc POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_SOURCE_DIR}/assets/"
+        $<TARGET_FILE_DIR:enginesrc>/assets)
+
 target_link_libraries(enginesrc PUBLIC enginelib)
 

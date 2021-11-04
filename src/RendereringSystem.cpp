@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include <SDL_opengl.h>
 
+#include "components/Renderer.h"
+
 const char* glsl_version = "#version 130";
 SDL_GLContext gl_context = nullptr;
 
@@ -44,4 +46,13 @@ void RendereringSystem::runLoop()
 void RendereringSystem::shutDown()
 {
 
+}
+
+void RendereringSystem::addEmptyRenderer(std::string go)
+{
+	Renderer r;
+	r.GOID = go;
+	r.shader = "null";
+	r.model = "null";
+	renderers.push_back(r);
 }

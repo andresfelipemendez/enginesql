@@ -15,8 +15,6 @@ EditorGUI gEditorGUI;
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 int main() {
-	
-
 	gPlatform.startUp();
 	gRenderer.startUp();
 	gEditorGUI.startUp();

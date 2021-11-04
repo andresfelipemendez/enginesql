@@ -4,6 +4,8 @@
 #include "SDL.h"
 #include "SDL_opengl.h"
 
+#include <filesystem>
+
 SDL_Window* window = nullptr;
 
 void Platform::startUp() {
@@ -32,6 +34,17 @@ void Platform::startUp() {
 	}
 
 	isRunning = true;
+}
+
+std::filesystem::directory_iterator Platform::listOf3DModels() {
+	std::string path = "assets/models";
+	return std::filesystem::directory_iterator(path);
+}
+
+std::filesystem::directory_iterator Platform::getShaders()
+{
+	std::string path = "assets/models";
+	return std::filesystem::directory_iterator(path);
 }
 
 void Platform::runLoop() {

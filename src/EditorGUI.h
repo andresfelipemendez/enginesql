@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 class EditorGUI 
 {
@@ -12,5 +13,7 @@ public:
 	~EditorGUI();
 	void startUp();
 	void runLoop();
+	std::string DrawGOSelection();
+	std::string DrawShaderSelection();
 	void shutDown();
 };
