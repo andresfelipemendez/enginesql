@@ -36,14 +36,14 @@ void Platform::startUp() {
 	isRunning = true;
 }
 
-std::filesystem::directory_iterator Platform::listOf3DModels() {
+std::filesystem::directory_iterator Platform::GetListOf3DModels() {
 	std::string path = "assets/models";
 	return std::filesystem::directory_iterator(path);
 }
 
 std::filesystem::directory_iterator Platform::getShaders()
 {
-	std::string path = "assets/models";
+	std::string path = "assets/shaders";
 	return std::filesystem::directory_iterator(path);
 }
 

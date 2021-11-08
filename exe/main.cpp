@@ -7,19 +7,23 @@
 #include "Scene.h"
 #include "EditorGUI.h"
 
+#include<filesystem>
+
 Platform gPlatform;
 RendereringSystem gRenderer;
 Scene gScene;
 EditorGUI gEditorGUI;
 
-//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+// #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 int main() {
 	gPlatform.startUp();
 	gRenderer.startUp();
 	gEditorGUI.startUp();
 
-	if (gScene.open("scene1.db")) {
+	std::cout << std::filesystem::current_path();
+
+	if (gScene.open("../../../../db/scene1.db")) {
 		gScene.Load();
 	}
 	
@@ -32,6 +36,7 @@ int main() {
 		gEditorGUI.runLoop();
 	}
 
-	gRenderer.startUp();
+	gScene.shutDown();
+	gRenderer.shutDown();
 	gPlatform.shutDown();
 }

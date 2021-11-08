@@ -1,11 +1,12 @@
 {
   "ExpandedNodes": [
     "",
+    "\\assets",
+    "\\assets\\shaders",
     "\\exe",
-    "\\lib\\imgui",
     "\\src",
     "\\src\\components"
   ],
-  "SelectedNode": "\\src\\Globals.h",
+  "SelectedNode": "\\exe\\CMakeLists.txt",
   "PreviewInSolutionExplorer": false
 }

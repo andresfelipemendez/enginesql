@@ -45,12 +45,6 @@ void EditorGUI::runLoop()
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
 
-	/*
-	if (show_demo_window)
-		ImGui::ShowDemoWindow(&show_demo_window);
-	*/
-
-	// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
 	{
 		static float f = 0.0f;
 		static int counter = 0;
@@ -58,39 +52,22 @@ void EditorGUI::runLoop()
 		ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		
-		for (auto& go : gScene.gameObjects)
-		{
-			auto print = go.Name + " " + go.GUID;
-			ImGui::Text(print.c_str());
-		}
-
-		for (const auto& modelPath : gPlatform.listOf3DModels()) {
-			ImGui::Text(modelPath.path().filename().string().c_str());
-		}
-
 		auto go = DrawGOSelection();
+		auto shader = DrawDropDownListOfShader();
+		auto model = DrawDropDownListOfModels();
 
 		for (auto& renderer : gRenderer.renderers)
 		{
 			ImGui::Text("%s, %s, %s", 
 				renderer.GOID.c_str(), renderer.shader.c_str()
-				, renderer.shader.c_str());
+				, renderer.model.c_str());
 		}
 
 		if (ImGui::Button("add renderer")) {
-			gRenderer.addEmptyRenderer(go);
+			gRenderer.addEmptyRenderer(go, shader, model);
+			gScene.AddRenderingComponent(go, shader, model);
 		}
 
-		ImGui::End();
-	}
-
-	// 3. Show another simple window.
-	if (show_another_window)
-	{
-		ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-		ImGui::Text("Hello from another window!");
-		if (ImGui::Button("Close Me"))
-			show_another_window = false;
 		ImGui::End();
 	}
 
@@ -123,19 +100,41 @@ std::string EditorGUI::DrawGOSelection()
 	return current_item;
 }
 
-std::string EditorGUI::DrawShaderSelection()
+std::string EditorGUI::DrawDropDownListOfShader()
 {
 	static std::string current_item = "null";
-	auto& shaders = gPlatform.getShaders();
-
-	if (ImGui::BeginCombo("##combo", current_item.c_str())) 
+	if (ImGui::BeginCombo("##shader", current_item.c_str())) 
 	{
-		for (int n = 0; n < gScene.gameObjects.size(); n++)
-		{
-			bool is_selected = (current_item == gScene.gameObjects[n].Name);
-			if (ImGui::Selectable(gScene.gameObjects[n].Name.c_str(), is_selected))
+		for(const auto&	shader : gPlatform.getShaders())
+		{ 
+			auto shaderFileName = shader.path().filename().string();
+			bool is_selected = (current_item == shaderFileName);
+			if (ImGui::Selectable(shaderFileName.c_str(), is_selected))
 			{
-				current_item = gScene.gameObjects[n].Name;
+				current_item = shaderFileName;
+				if (is_selected)
+				{
+					ImGui::SetItemDefaultFocus();
+				}
+			}
+		}
+		ImGui::EndCombo();
+	}
+	return current_item;
+}
+
+std::string EditorGUI::DrawDropDownListOfModels()
+{
+	static std::string current_item = "null";
+	if (ImGui::BeginCombo("##model", current_item.c_str()))
+	{
+		for (const auto& shader : gPlatform.GetListOf3DModels())
+		{
+			auto shaderFileName = shader.path().filename().string();
+			bool is_selected = (current_item == shaderFileName);
+			if (ImGui::Selectable(shaderFileName.c_str(), is_selected))
+			{
+				current_item = shaderFileName;
 				if (is_selected)
 				{
 					ImGui::SetItemDefaultFocus();

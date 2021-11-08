@@ -14,6 +14,7 @@ public:
 	void startUp();
 	void runLoop();
 	std::string DrawGOSelection();
-	std::string DrawShaderSelection();
+	std::string DrawDropDownListOfShader();
+	std::string DrawDropDownListOfModels();
 	void shutDown();
 };

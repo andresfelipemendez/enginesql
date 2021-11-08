@@ -10,7 +10,7 @@ public:
 	void startUp();
 	void runLoop();
 	void shutDown();
-	std::filesystem::directory_iterator listOf3DModels();
+	std::filesystem::directory_iterator GetListOf3DModels();
 	bool isRunning = false;
 	std::filesystem::directory_iterator getShaders();
 };

@@ -48,11 +48,11 @@ void RendereringSystem::shutDown()
 
 }
 
-void RendereringSystem::addEmptyRenderer(std::string go)
+void RendereringSystem::addEmptyRenderer(std::string go, std::string shader, std::string model)
 {
 	Renderer r;
 	r.GOID = go;
-	r.shader = "null";
-	r.model = "null";
+	r.shader = shader;
+	r.model = model;
 	renderers.push_back(r);
 }

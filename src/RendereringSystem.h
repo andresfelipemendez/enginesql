@@ -18,6 +18,6 @@ public:
 	void startUp();
 	void runLoop();
 	void shutDown();
-	void addEmptyRenderer(std::string go);
+	void addEmptyRenderer(std::string go, std::string shader, std::string model);
 };
 

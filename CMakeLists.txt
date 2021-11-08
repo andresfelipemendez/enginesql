@@ -16,7 +16,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/lib/tinygltf)
 
 
 if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
-    add_subdirectory(tests)
+   # add_subdirectory(tests)
 endif ()
 
 enable_testing()

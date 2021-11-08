@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "sqlite3.h"
 #include <string_view>
+#include <iostream>
 
 std::vector<GameObject> Scene::gameObjects;
 
@@ -17,7 +18,7 @@ Scene::~Scene() {
 
 bool Scene::open(std::string name) {
 	int exit = 0;
-	exit = sqlite3_open("scene1.db", &db);
+	exit = sqlite3_open(name.c_str(), &db);
 	sceneName = name;
 	return exit == SQLITE_OK;
 }
@@ -36,34 +37,43 @@ void Scene::Load()
 	sqlite3_finalize(stmt);
 }
 
-static int callback(void* data, int argc, char** argv, char** azColName) {
-	int i;
-	std::string_view colName;
-	std::string_view value;
-	GameObject go;
-	for (i = 0; i < argc; i++) {
-
-		colName = azColName[i];
-		value = argv[i] ? argv[i] : "NULL";
-
-		if (colName == "GUID") {
-			go.GUID = value;
-		}
-		else if (colName == "Name") {
-			go.Name = value;
-		}
+void  Scene::AddRenderingComponent(std::string gameObject, std::string shader, std::string model) {
+	sqlite3_stmt* stmt = nullptr;
+	char const* szSQL = "INSERT INTO RenderingComponents(ShaderID, MeshID) VALUES(?, ?);";
+	if (sqlite3_prepare_v2(db, szSQL, -1, &stmt, nullptr) != SQLITE_OK) {
+		fprintf(stderr, "SQL error: %s\n%s\n", szSQL,
+			sqlite3_errmsg(db));
+		return;
 	}
-	Scene::gameObjects.push_back(go);
+	
+	int rc;
+	rc = sqlite3_exec(db, "BEGIN TRANSACTION", 0, 0, 0);
 
-	return 0;
+	rc = sqlite3_bind_text(stmt, 1, shader.c_str(), shader.size(),nullptr);
+	if (rc != SQLITE_OK) {
+		fprintf(stderr, "SQL error: %s\n%s\n", szSQL, sqlite3_errmsg(db));
+		return;
+	}
+	sqlite3_bind_text(stmt, 2, model.c_str(), model.size(), nullptr);
+	
+	do {
+		rc = sqlite3_step(stmt);
+		for (int colIndex = 0; colIndex < sqlite3_column_count(stmt); colIndex++) {
+			auto result = sqlite3_column_text(stmt, colIndex);
+			std::cout << (result);
+			//  Do something with the result.
+		}
+	} while (rc == SQLITE_ROW);
+
+	
+
+	char* zErrMsg = 0;  //  Can perhaps display the error message if rc != SQLITE_OK.
+	rc = sqlite3_exec(db, "END TRANSACTION", 0, 0, &zErrMsg);   //  End the transaction.
+
+	//rc = sqlite3_finalize(stmt);
+	sqlite3_finalize(stmt);
 }
 
-std::string Scene::getValue()
-{
-	auto sql = "SELECT * from scene1";
-	const char* data = "Callback function called";
-	char* zErrMsg = 0;
-	int rc;
-	rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
-	return sql;
+void Scene::shutDown() {
+
 }
